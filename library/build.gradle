@@ -1,5 +1,4 @@
 apply plugin: 'com.android.library'
-apply from: rootProject.file("mt_maven.gradle")
 apply from: rootProject.file('quality.gradle')
 
 android {
@@ -34,7 +33,6 @@ configurations.all {
 }
 
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile 'com.android.support:support-annotations:24.1.1'
-    compile project(':payload_reader')
+    implementation 'androidx.annotation:annotation:1.2.0'
+    implementation "$GROUP:payload_reader:$VERSION_NAME"
 }

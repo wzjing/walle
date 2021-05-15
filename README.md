@@ -147,8 +147,8 @@ String value = WalleChannelReader.get(context, "buildtime");
 
 读写模块的使用说明详见：
 
-* [APK Signing Block读取模块: payload_reader](payload_reader/README.md)
-* [APK Signing Block写入模块: payload_writer](payload_writer/README.md)
+* [APK Signing Block读取模块: payload_reader](common/payload_reader/README.md)
+* [APK Signing Block写入模块: payload_writer](common/payload_writer/README.md)
 
 ## Q&A
 - [360加固失效](https://github.com/Meituan-Dianping/walle/wiki/360%E5%8A%A0%E5%9B%BA%E5%A4%B1%E6%95%88%EF%BC%9F)？

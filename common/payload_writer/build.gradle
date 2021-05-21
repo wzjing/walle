@@ -10,4 +10,6 @@ dependencies {
 sourceCompatibility = JavaVersion.VERSION_1_8
 targetCompatibility = JavaVersion.VERSION_1_8
 
+println "sonatypeUsername: $gradle.ext.sonatypeUsername"
+
 apply from: "../../scripts/mavencentral-publish.gradle"

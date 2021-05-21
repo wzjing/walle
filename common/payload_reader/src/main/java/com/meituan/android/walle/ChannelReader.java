@@ -16,7 +16,7 @@ public final class ChannelReader {
     }
 
     /**
-     * easy api for get channel & extra info.<br/>
+     * easy api for get channel and extra info.
      *
      * @param apkFile apk file
      * @return null if not found
@@ -32,7 +32,7 @@ public final class ChannelReader {
     }
 
     /**
-     * get channel & extra info by map, use {@link ChannelReader#CHANNEL_KEY PayloadReader.CHANNEL_KEY} get channel
+     * get channel and extra info by map, use {@link ChannelReader#CHANNEL_KEY PayloadReader.CHANNEL_KEY} get channel
      *
      * @param apkFile apk file
      * @return null if not found

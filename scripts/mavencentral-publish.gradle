@@ -28,25 +28,45 @@ publishing {
             artifact javadocJar
 
             pom.withXml {
-                def pomFile = file("${project.buildDir}/generated-pom.xml")
-                writeTo(pomFile)
-                def pomAscFile = signing.sign(pomFile).signatureFiles[0]
-                artifact(pomAscFile) {
-                    classifier = null
-                    extension = 'pom.asc'
-                }
-            }
+                def root = asNode()
 
-            // create the signed artifacts
-            project.tasks.signArchives.signatureFiles.each {
-                artifact(it) {
-                    def matcher = it.file =~ /-(sources|javadoc)\.jar\.asc$/
-                    if (matcher.find()) {
-                        classifier = matcher.group(1)
-                    } else {
-                        classifier = null
+                // eliminate test-scoped dependencies (no need in maven central POMs)
+                root.dependencies.removeAll { dep ->
+                    dep.scope == "test"
+                }
+
+                // add all items necessary for maven central publication
+                root.children().last() + {
+                    resolveStrategy = Closure.DELEGATE_FIRST
+
+                    description 'Custom MeiTuan walle channel util'
+                    name 'Custom Walle'
+                    url 'https://github.com/mautini/schemaorg-java'
+                    organization {
+                        name 'io.github.wzjing'
+                        url 'https://io.github.wzjing/projects/walle'
                     }
-                    extension = 'jar.asc'
+                    issueManagement {
+                        system 'GitHub'
+                        url 'https://github.com/wzjing/walle/issues'
+                    }
+                    licenses {
+                        license {
+                            name 'Apache License 2.0'
+                            url 'https://github.com/wzjing/walle/blob/master/LICENSE'
+                            distribution 'repo'
+                        }
+                    }
+                    scm {
+                        url 'https://github.com/wzjing/walle'
+                        connection 'scm:git:git://github.com/wzjing/walle'
+                        developerConnection 'scm:git:ssh://git@github.com:wzjing/walle.git'
+                    }
+                    developers {
+                        developer {
+                            name 'wzjing'
+                        }
+                    }
                 }
             }
         }
@@ -54,40 +74,21 @@ publishing {
     }
 
     repositories {
+
         maven {
-            url "https://oss.sonatype.org/service/local/staging/deploy/maven2"
+            if (VERSION_NAME.toUpperCase().endsWith("SNAPSHOT"))  {
+                url "https://s01.oss.sonatype.org/content/repositories/snapshots/"
+            } else {
+                url "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
+            }
             credentials {
-                username sonatypeUsername
-                password sonatypePassword
+                username gradle.ext.sonatypeUsername
+                password gradle.ext.sonatypePassword
             }
         }
     }
 }
 
 signing {
-    sign configurations.archives
-}
-
-project.tasks.signArchives.signatureFiles.each {
-    artifact(it) {
-        def matcher = it.file =~ /-(sources|javadoc)\.jar\.asc$/
-        if (matcher.find()) {
-            classifier = matcher.group(1)
-        } else {
-            classifier = null
-        }
-        extension = 'jar.asc'
-    }
-}
-
-model {
-    tasks.generatePomFileForMavenJavaPublication {
-        destination = file("$buildDir/generated-pom.xml")
-    }
-    tasks.publishMavenJavaPublicationToMavenLocal {
-        dependsOn project.tasks.signArchives
-    }
-    tasks.publishMavenJavaPublicationToMavenRepository {
-        dependsOn project.tasks.signArchives
-    }
+    sign publishing.publications
 }

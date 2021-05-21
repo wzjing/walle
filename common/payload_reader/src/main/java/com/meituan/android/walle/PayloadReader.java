@@ -17,7 +17,8 @@ public final class PayloadReader {
     /**
      * get string (UTF-8) by id
      *
-     * @param apkFile apk file
+     * @param apkFile   apk file
+     * @param id        string id
      * @return null if not found
      */
     public static String getString(final File apkFile, final int id) {
@@ -34,7 +35,7 @@ public final class PayloadReader {
     }
 
     /**
-     * get bytes by id <br/>
+     * get bytes by id
      *
      * @param apkFile apk file
      * @param id      id

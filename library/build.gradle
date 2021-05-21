@@ -34,5 +34,5 @@ configurations.all {
 
 dependencies {
     implementation 'androidx.annotation:annotation:1.2.0'
-    implementation "$GROUP:payload_reader:$VERSION_NAME"
+    implementation "$GROUP_NAME:payload_reader:$VERSION_NAME"
 }

@@ -4,7 +4,15 @@ include ':app'
 includeBuild 'plugin'
 includeBuild('common') {
     dependencySubstitution {
-        substitute(module("$GROUP:payload_writer")).with(project(":payload_writer"))
-        substitute(module("$GROUP:payload_reader")).with(project(":payload_reader"))
+        substitute(module("$GROUP_NAME:payload_writer")).with(project(":payload_writer"))
+        substitute(module("$GROUP_NAME:payload_reader")).with(project(":payload_reader"))
     }
 }
+
+def localProp = new Properties()
+localProp.load(file("local.properties").newDataInputStream())
+gradle.ext.sigingKeyId = localProp["signing.keyId"]
+gradle.ext.sigingPassword = localProp["signing.password"]
+gradle.ext.sigingSecretKeyRingFile = localProp["signing.secretKeyRingFile"]
+gradle.ext.sonatypeUsername = localProp["sonatype.username"]
+gradle.ext.sonatypePassword = localProp["sonatype.password"]

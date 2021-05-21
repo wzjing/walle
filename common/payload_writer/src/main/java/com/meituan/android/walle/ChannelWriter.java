@@ -37,7 +37,7 @@ public final class ChannelWriter {
         put(apkFile, channel, null, lowMemory);
     }
     /**
-     * write channel & extra info with channel fixed id
+     * write channel and extra info with channel fixed id.
      *
      * @param apkFile   apk file
      * @param channel   channel （nullable)
@@ -49,7 +49,7 @@ public final class ChannelWriter {
         put(apkFile, channel, extraInfo, false);
     }
     /**
-     * write channel & extra info with channel fixed id
+     * write channel and extra info with channel fixed id.
      *
      * @param apkFile   apk file
      * @param channel   channel （nullable)
@@ -76,7 +76,8 @@ public final class ChannelWriter {
         putRaw(apkFile, jsonObject.toString(), lowMemory);
     }
     /**
-     * write custom content with channel fixed id <br/>
+     * write custom content with channel fixed id.
+     *
      * NOTE: {@link ChannelReader#get(File)}  and {@link ChannelReader#getMap(File)}  may be affected
      *
      * @param apkFile apk file
@@ -88,7 +89,8 @@ public final class ChannelWriter {
         putRaw(apkFile, string, false);
     }
     /**
-     * write custom content with channel fixed id<br/>
+     * write custom content with channel fixed id.
+     *
      * NOTE: {@link ChannelReader#get(File)}  and {@link ChannelReader#getMap(File)}  may be affected
      *
      * @param apkFile apk file
@@ -111,7 +113,7 @@ public final class ChannelWriter {
         remove(apkFile, false);
     }
     /**
-     * remove channel id content
+     * remove channel id content.
      *
      * @param apkFile apk file
      * @param lowMemory if need low memory operation, maybe a little slower
